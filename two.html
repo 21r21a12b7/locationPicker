@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Map Centered to Device Location</title>
+    <style>
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 5;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8"></script>
+    <script>
+        let map;
+        let marker;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 0, lng: 0},
+                zoom: 15
+            });
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            const location = {lat: lat, lng: lng};
+            
+            map.setCenter(location);
+
+            if (marker) {
+                marker.setMap(null);
+            }
+
+            marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+
+            document.getElementById('coordinates').value = `Latitude: ${lat}, Longitude: ${lng}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('findButton').addEventListener('click', () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError, {
+                        enableHighAccuracy: true,
+                        timeout: 20000,
+                        maximumAge: 0
+                    });
+                } else {
+                    document.getElementById('coordinates').value = "Geolocation is not supported by this browser.";
+                }
+            });
+        });
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById('coordinates').value = "User denied the request for Geolocation.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById('coordinates').value = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById('coordinates').value = "The request to get user location timed out.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    document.getElementById('coordinates').value = "An unknown error occurred.";
+                    break;
+            }
+        }
+    </script>
+</head>
+<body onload="initMap()">
+    <div id="controls">
+        <button id="findButton">Find My Location</button>
+        <input type="text" id="coordinates" readonly>
+    </div>
+    <div id="map"></div>
+</body>
+</html>
