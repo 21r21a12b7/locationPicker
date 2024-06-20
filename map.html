@@ -103,6 +103,11 @@
             margin-bottom: 10px;
             margin-right: 10px;
         }
+
+        #my-location-button {
+            background-color: white;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -255,15 +260,17 @@
 
 
         // Add event listener to satellite button
-        let flag=false; // false means currentLayer is street view and vice versa
+        let flag = false; // false means currentLayer is street view and vice versa
         document.getElementById('toggleButton').addEventListener('click', function () {
-            if(flag===false){
-                map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-                flag=true;
+            if (flag === false) {
+                map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+                toggleButton.src = 'toStreet4.png'; // Change the image to "toStreet.png"
+                flag = true;
             }
-            else{
+            else {
                 map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-                flag=false;
+                toggleButton.src = 'toSatellite.png'; // Change the image to "toStreet.png"
+                flag = false;
             }
         });
     </script>
