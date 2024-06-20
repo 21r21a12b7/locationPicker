@@ -47,7 +47,7 @@
         }
 
         #coordinates {
-            padding: 8px;
+            padding: 10px;
             font-size: 16px;
             background-color: white;
             border: 1px solid black;
@@ -59,17 +59,16 @@
         #save-button {
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #000000;
-            color: white;
+            background-color: white;
+            color: black;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             margin-right: 10%;
+            border: 1px solid black;
+            font-weight: bold;
         }
 
-        #save-button:hover {
-            background-color: #0056b3;
-        }
 
         /* Hide Google map attribution content */
         .gm-style .gm-style-cc,
@@ -175,6 +174,13 @@
                             updateCoordinates(event.latLng.lat(), event.latLng.lng());
                         });
 
+                        // Add click event listener to reposition the marker and center the map
+                        marker.addListener('click', function () {
+                            map.setCenter(marker.getPosition());
+                            map.setZoom(17);
+                        });
+
+
                         // Initialize the autocomplete feature
                         initAutocomplete();
                     },
@@ -183,7 +189,7 @@
                     },
                     {
                         enableHighAccuracy: true,
-                        timeout: 10000,
+                        timeout: 2000,
                         maximumAge: 0
                     }
                 );
@@ -264,7 +270,7 @@
         document.getElementById('toggleButton').addEventListener('click', function () {
             if (flag === false) {
                 map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-                toggleButton.src = 'toStreet4.png'; // Change the image to "toStreet.png"
+                toggleButton.src = 'toStreet.png'; // Change the image to "toStreet.png"
                 flag = true;
             }
             else {
