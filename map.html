@@ -119,10 +119,15 @@
             background-color: white;
             border-radius: 5px;
         }
+
+        /* Hide the page content initially */
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 
-<body>
+<body class="hidden">
     <div id="search-and-manage">
         <img id="back-arrow" src="backArrow_street.png" alt="Back Arrow">
         <input id="search-input" type="text" placeholder="Search for places...">
@@ -169,7 +174,7 @@
                         // Create the map centered at the current location
                         map = new google.maps.Map(document.getElementById('map'), {
                             center: pos,
-                            zoom: 17,
+                            zoom: 18,
                             fullscreenControl: false // Disable the fullscreen control
                         });
 
@@ -197,11 +202,14 @@
                         // Add click event listener to reposition the marker and center the map
                         marker.addListener('click', function () {
                             map.setCenter(marker.getPosition());
-                            map.setZoom(17);
+                            map.setZoom(18);
                         });
 
                         // Initialize the autocomplete feature
                         initAutocomplete();
+
+                        // Show the page content after the map is loaded
+                        document.body.classList.remove('hidden');
                     },
                     function () {
                         handleLocationError(true, map.getCenter());
@@ -232,7 +240,7 @@
 
                 // Center the map on the selected place
                 map.setCenter(place.geometry.location);
-                map.setZoom(17);
+                map.setZoom(18);
 
                 // Move the marker to the selected place
                 marker.setPosition(place.geometry.location);
@@ -273,6 +281,7 @@
                     };
                     map.panTo(pos);
                     marker.setPosition(pos);
+                    map.setZoom(18);
                 }, function (error) {
                     handleLocationError(true, map.getCenter(), error.message);
                 }, {
@@ -300,7 +309,6 @@
                 flag = false;
             }
         });
-
     </script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places"></script>
