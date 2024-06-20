@@ -21,18 +21,33 @@
 
         /* Style the search input */
         #search-input {
-            position: absolute;
-            top: 3%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
+            width: 70%;
             padding: 8px;
             font-size: 16px;
-            z-index: 5;
-            /* Ensure the input field is above the map */
             border: 1px solid black;
             border-radius: 5px;
+        }
 
+        #search-and-manage {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            position: absolute;
+            top: 3%;
+            width: 100%;
+            z-index: 5;
+        }
+
+        #back-arrow {
+            height: 23px;
+            width: 23px;
+        }
+
+        #clear-button {
+            margin-right: 5%;
+            height: 28px;
+            width: 28px;
         }
 
         #coordinates-save-container {
@@ -72,10 +87,7 @@
 
         /* Hide Google map attribution content */
         .gm-style .gm-style-cc,
-        .gmnoprint .gmnoprint
-
-        /* .gm-style .gmnoprint */
-            {
+        .gmnoprint .gmnoprint {
             display: none !important;
         }
 
@@ -111,7 +123,11 @@
 </head>
 
 <body>
-    <input id="search-input" type="text" placeholder="Search for places...">
+    <div id="search-and-manage">
+        <img id="back-arrow" src="backArrow_street.png" alt="Back Arrow">
+        <input id="search-input" type="text" placeholder="Search for places...">
+        <img id="clear-button" src="clear_street.png" alt="Clear">
+    </div>
     <div id="map"></div>
     <div id="coordinates-save-container">
         <div id="coordinates"></div>
@@ -124,6 +140,10 @@
     <script>
         let map;
         let marker;
+
+        document.getElementById('clear-button').addEventListener('click', function () {
+            document.getElementById('search-input').value = '';
+        });
 
         // Update the marker position and coordinates
         function updateCoordinates(lat, lng) {
@@ -160,7 +180,7 @@
                             draggable: true,
                             icon: {
                                 url: 'studentStop.svg',
-                                scaledSize: new google.maps.Size(43, 43) // Adjust the size as needed
+                                scaledSize: new google.maps.Size(50, 50) // Adjust the size as needed
                             }
                         });
 
@@ -179,7 +199,6 @@
                             map.setCenter(marker.getPosition());
                             map.setZoom(17);
                         });
-
 
                         // Initialize the autocomplete feature
                         initAutocomplete();
@@ -264,21 +283,24 @@
             }
         });
 
-
         // Add event listener to satellite button
         let flag = false; // false means currentLayer is street view and vice versa
         document.getElementById('toggleButton').addEventListener('click', function () {
             if (flag === false) {
                 map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-                toggleButton.src = 'toStreet.png'; // Change the image to "toStreet.png"
+                document.getElementById('toggleButton').src = 'toStreet.png'; // Change the image to "toStreet.png"
+                document.getElementById('back-arrow').src = 'backArrow_satellite.png';
+                document.getElementById('clear-button').src = 'clear_satellite.png';
                 flag = true;
-            }
-            else {
+            } else {
                 map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-                toggleButton.src = 'toSatellite.png'; // Change the image to "toStreet.png"
+                document.getElementById('toggleButton').src = 'toSatellite.png'; // Change the image to "toStreet.png"
+                document.getElementById('back-arrow').src = 'backArrow_street.png';
+                document.getElementById('clear-button').src = 'clear_street.png';
                 flag = false;
             }
         });
+
     </script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places"></script>
