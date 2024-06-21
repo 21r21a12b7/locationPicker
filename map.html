@@ -241,7 +241,7 @@
 
         document.getElementById('save-button').addEventListener('click', function () {
             const coordinatesElement = document.getElementById('coordinates').innerText;
-            window.postMessage(coordinatesElement, '*');
+            window.parent.postMessage(coordinatesElement, '*');
 
             const saveButton = document.getElementById('save-button');
             saveButton.innerText = "Saved!";
