@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google map</title>
     <style>
-        /* Ensure the map takes up the entire viewport */
         html,
         body {
             height: 100%;
@@ -19,7 +18,6 @@
             width: 100%;
         }
 
-        /* Style the search input */
         #search-input {
             width: 70%;
             padding: 8px;
@@ -84,14 +82,11 @@
             font-weight: bold;
         }
 
-
-        /* Hide Google map attribution content */
         .gm-style .gm-style-cc,
         .gmnoprint .gmnoprint {
             display: none !important;
         }
 
-        /* Hide Google labeling */
         .gm-style .gm-style-mtc,
         .gm-style .gm-style-mtc div,
         .gm-style .gm-style-mtc span {
@@ -145,18 +140,13 @@
             document.getElementById('search-input').value = '';
         });
 
-        // Update the marker position and coordinates
         function updateCoordinates(lat, lng) {
-            // Round the coordinates to 6 decimal places
             lat = lat.toFixed(6);
             lng = lng.toFixed(6);
-
-            const coordinatesElement = document.getElementById('coordinates');
-            coordinatesElement.innerText = `[ ${lat} , ${lng}]`;
+            document.getElementById('coordinates').innerText = `[ ${lat} , ${lng}]`;
         }
 
         function initMap() {
-            // Use HTML5 geolocation to get the current position
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     function (position) {
@@ -166,21 +156,19 @@
                         };
                         updateCoordinates(pos.lat, pos.lng);
 
-                        // Create the map centered at the current location
                         map = new google.maps.Map(document.getElementById('map'), {
                             center: pos,
                             zoom: 18,
-                            fullscreenControl: false // Disable the fullscreen control
+                            fullscreenControl: false
                         });
 
-                        // Add a custom draggable marker at the current location
                         marker = new google.maps.Marker({
                             position: pos,
                             map: map,
                             draggable: true,
                             icon: {
                                 url: 'studentStop.svg',
-                                scaledSize: new google.maps.Size(50, 50) // Adjust the size as needed
+                                scaledSize: new google.maps.Size(50, 50)
                             }
                         });
 
@@ -188,23 +176,17 @@
                             updateCoordinates(event.latLng.lat(), event.latLng.lng());
                         });
 
-                        // Add click event listener to reposition the marker
                         map.addListener('click', function (event) {
                             marker.setPosition(event.latLng);
                             updateCoordinates(event.latLng.lat(), event.latLng.lng());
                         });
 
-                        // Add click event listener to reposition the marker and center the map
                         marker.addListener('click', function () {
                             map.setCenter(marker.getPosition());
                             map.setZoom(18);
                         });
 
-                        // Initialize the autocomplete feature
                         initAutocomplete();
-
-                        // Show the page content after the map is loaded
-                        document.body.classList.remove('hidden');
                     },
                     function () {
                         handleLocationError(true, map.getCenter());
@@ -216,7 +198,6 @@
                     }
                 );
             } else {
-                // Browser doesn't support Geolocation
                 handleLocationError(false, map.getCenter());
             }
         }
@@ -233,11 +214,8 @@
                     return;
                 }
 
-                // Center the map on the selected place
                 map.setCenter(place.geometry.location);
                 map.setZoom(18);
-
-                // Move the marker to the selected place
                 marker.setPosition(place.geometry.location);
                 updateCoordinates(place.geometry.location.lat(), place.geometry.location.lng());
             });
@@ -247,12 +225,10 @@
             alert(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.');
         }
 
-        // Add event listener to save button
         document.getElementById('save-button').addEventListener('click', function () {
             const coordinatesElement = document.getElementById('coordinates').innerText;
             window.postMessage(coordinatesElement, '*');
 
-            // Change button text to "Saved!" and revert after 3 seconds
             const saveButton = document.getElementById('save-button');
             saveButton.innerText = "Saved!";
             setTimeout(() => {
@@ -260,13 +236,10 @@
             }, 2000);
         });
 
-        // Handle the message event
         window.addEventListener('message', function (event) {
             console.log('Coordinates received:', event.data);
-            // You can handle the received data here
         });
 
-        // Add event listener to my location button
         document.getElementById('my-location-button').addEventListener('click', function () {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
@@ -287,26 +260,25 @@
             }
         });
 
-        // Add event listener to satellite button
-        let flag = false; // false means currentLayer is street view and vice versa
+        let flag = false;
         document.getElementById('toggleButton').addEventListener('click', function () {
             if (flag === false) {
                 map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-                document.getElementById('toggleButton').src = 'toStreet.png'; // Change the image to "toStreet.png"
+                document.getElementById('toggleButton').src = 'toStreet.png';
                 document.getElementById('back-arrow').src = 'backArrow_satellite.png';
                 document.getElementById('clear-button').src = 'clear_satellite.png';
                 flag = true;
             } else {
                 map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-                document.getElementById('toggleButton').src = 'toSatellite.png'; // Change the image to "toSatellite.png"
+                document.getElementById('toggleButton').src = 'toSatellite.png';
                 document.getElementById('back-arrow').src = 'backArrow_street.png';
                 document.getElementById('clear-button').src = 'clear_street.png';
                 flag = false;
             }
         });
-        </script>
-        <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places"></script>
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places"></script>
 </body>
 
 </html>
