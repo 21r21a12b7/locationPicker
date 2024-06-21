@@ -137,8 +137,6 @@
         <img id="my-location-button" src="myLocation.png" alt="My Location">
         <img id="toggleButton" src="toSatellite.png" alt="Satellite View">
     </div>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places"></script>
     <script>
         let map;
         let marker;
@@ -304,7 +302,16 @@
             window.parent.postMessage(coordinatesElement, '*');
         });
     </script>
-    
+    <script>
+        // Load the Google Maps JavaScript API asynchronously
+        function loadScript() {
+            const script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places';
+            document.body.appendChild(script);
+        }
+
+        window.onload = loadScript;
+    </script>
 </body>
 
 </html>
