@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google map</title>
+    <title>Google Map</title>
     <style>
         html,
         body {
@@ -35,6 +35,7 @@
             top: 3%;
             width: 100%;
             z-index: 5;
+            transition: top 0.5s;
         }
 
         #back-arrow {
@@ -187,6 +188,17 @@
                         });
 
                         initAutocomplete();
+
+                        // Listen for the visibility change of the street view
+                        map.getStreetView().addListener('visible_changed', function () {
+                            if (map.getStreetView().getVisible()) {
+                                document.getElementById('search-and-manage').style.top = '10%';
+                                document.getElementById('back-arrow').src = 'backArrow_satellite.png';
+                                document.getElementById('clear-button').src = 'clear_satellite.png';
+                            } else {
+                                document.getElementById('search-and-manage').style.top = '3%';
+                            }
+                        });
                     },
                     function () {
                         handleLocationError(true, map.getCenter());
