@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Map</title>
+    <link rel="preload" href="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places" as="script">
     <style>
         html,
         body {
@@ -114,6 +115,10 @@
         #my-location-button {
             background-color: white;
             border-radius: 5px;
+        }
+
+        #map {
+            background-color: white;
         }
     </style>
 </head>
@@ -289,6 +294,13 @@
                 document.getElementById('clear-button').src = 'clear_street.png';
                 flag = false;
             }
+        });
+
+        // Add click event listener to the back-arrow to close the iframe
+        document.getElementById('back-arrow').addEventListener('click', function () {
+            // const coordinatesElement = document.getElementById('coordinates').innerText;
+            const coordinatesElement = "Enter location Coordinates";
+            window.parent.postMessage(coordinatesElement, '*');
         });
     </script>
     <script async defer
