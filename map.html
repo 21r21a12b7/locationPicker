@@ -142,6 +142,10 @@
         let map;
         let marker;
 
+        document.getElementById('back-arrow').addEventListener('click', function () {
+            window.parent.postMessage('closeMap', '*');
+        });
+
         document.getElementById('clear-button').addEventListener('click', function () {
             document.getElementById('search-input').value = '';
         });

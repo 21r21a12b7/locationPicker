@@ -95,7 +95,10 @@
 
             // Listen for messages from the iframe
             window.addEventListener('message', function (event) {
-                if (event.data) {
+                if (event.data === 'closeMap') {
+                    document.body.removeChild(iframe);
+                    document.body.style.backgroundColor = ''; // Reset background color
+                } else if (event.data) {
                     document.getElementById('textDisplay').value = event.data;
                     document.body.style.backgroundColor = ''; // Reset background color
                     document.body.removeChild(iframe); // Remove the iframe
