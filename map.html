@@ -174,7 +174,8 @@
                         map = new google.maps.Map(document.getElementById('map'), {
                             center: pos,
                             zoom: 18,
-                            fullscreenControl: true
+                            fullscreenControl: false,
+                            gestureHandling: 'greedy' // Enables single-finger map movement
                         });
 
                         marker = new google.maps.Marker({
