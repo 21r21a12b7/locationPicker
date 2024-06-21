@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Map</title>
-    <link rel="preload" href="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places" as="script">
     <style>
         html,
         body {
@@ -138,6 +137,8 @@
         <img id="my-location-button" src="myLocation.png" alt="My Location">
         <img id="toggleButton" src="toSatellite.png" alt="Satellite View">
     </div>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places"></script>
     <script>
         let map;
         let marker;
@@ -303,8 +304,7 @@
             window.parent.postMessage(coordinatesElement, '*');
         });
     </script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places"></script>
+    
 </body>
 
 </html>
