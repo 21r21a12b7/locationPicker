@@ -119,15 +119,10 @@
             background-color: white;
             border-radius: 5px;
         }
-
-        /* Hide the page content initially */
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 
-<body class="hidden">
+<body>
     <div id="search-and-manage">
         <img id="back-arrow" src="backArrow_street.png" alt="Back Arrow">
         <input id="search-input" type="text" placeholder="Search for places...">
@@ -303,15 +298,15 @@
                 flag = true;
             } else {
                 map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-                document.getElementById('toggleButton').src = 'toSatellite.png'; // Change the image to "toStreet.png"
+                document.getElementById('toggleButton').src = 'toSatellite.png'; // Change the image to "toSatellite.png"
                 document.getElementById('back-arrow').src = 'backArrow_street.png';
                 document.getElementById('clear-button').src = 'clear_street.png';
                 flag = false;
             }
         });
-    </script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places"></script>
+        </script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places"></script>
 </body>
 
 </html>
