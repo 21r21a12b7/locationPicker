@@ -124,9 +124,9 @@
 
 <body>
     <div id="search-and-manage">
-        <img id="back-arrow" src="backArrow_street.png" alt="Back Arrow">
+        <img id="back-arrow" src="img/backArrow_street.png" alt="Back Arrow">
         <input id="search-input" type="text" placeholder="Search for places...">
-        <img id="clear-button" src="clear_street.png" alt="Clear">
+        <img id="clear-button" src="img/clear_street.png" alt="Clear">
     </div>
     <div id="map"></div>
     <div id="coordinates-save-container">
@@ -134,9 +134,9 @@
         <button id="save-button">Save</button>
     </div>
     <div id="buttons-container">
-        <img id="refreshButton" src="refresh_street.png" alt="refresh">
-        <img id="my-location-button" src="myLocation.png" alt="My Location">
-        <img id="toggleButton" src="toSatellite.png" alt="Satellite View">
+        <img id="refreshButton" src="img/refresh_street.png" alt="refresh">
+        <img id="my-location-button" src="img/myLocation.png" alt="My Location">
+        <img id="toggleButton" src="img/toSatellite.png" alt="Satellite View">
     </div>
     <script>
         let map;
@@ -153,10 +153,10 @@
         document.getElementById('refreshButton').addEventListener('click', function () {
             // Remove the map instance and reinitialize it
             initMap();
-            document.getElementById('toggleButton').src = 'toSatellite.png';
-            document.getElementById('back-arrow').src = 'backArrow_street.png';
-            document.getElementById('clear-button').src = 'clear_street.png';
-            document.getElementById('refreshButton').src = 'refresh_street.png';
+            document.getElementById('toggleButton').src = 'img/toSatellite.png';
+            document.getElementById('back-arrow').src = 'img/backArrow_street.png';
+            document.getElementById('clear-button').src = 'img/clear_street.png';
+            document.getElementById('refreshButton').src = 'img/refresh_street.png';
         });
 
         function updateCoordinates(lat, lng) {
@@ -187,7 +187,7 @@
                             map: map,
                             draggable: true,
                             icon: {
-                                url: 'studentStop.svg',
+                                url: 'img/studentStop.svg',
                                 scaledSize: new google.maps.Size(50, 50)
                             }
                         });
@@ -212,12 +212,12 @@
                         map.getStreetView().addListener('visible_changed', function () {
                             if (map.getStreetView().getVisible()) {
                                 document.getElementById('search-and-manage').style.top = '10%';
-                                document.getElementById('back-arrow').src = 'backArrow_satellite.png';
-                                document.getElementById('clear-button').src = 'clear_satellite.png';
+                                document.getElementById('back-arrow').src = 'img/backArrow_satellite.png';
+                                document.getElementById('clear-button').src = 'img/clear_satellite.png';
                             } else {
                                 document.getElementById('search-and-manage').style.top = '3%';
-                                document.getElementById('back-arrow').src = 'backArrow_street.png';
-                                document.getElementById('clear-button').src = 'clear_street.png';
+                                document.getElementById('back-arrow').src = 'img/backArrow_street.png';
+                                document.getElementById('clear-button').src = 'img/clear_street.png';
                             }
                         });
                     },
@@ -297,17 +297,17 @@
         document.getElementById('toggleButton').addEventListener('click', function () {
             if (flag === false) {
                 map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-                document.getElementById('toggleButton').src = 'toStreet.png';
-                document.getElementById('back-arrow').src = 'backArrow_satellite.png';
-                document.getElementById('clear-button').src = 'clear_satellite.png';
-                document.getElementById('refreshButton').src = 'refresh_satellite.png';
+                document.getElementById('toggleButton').src = 'img/toStreet.png';
+                document.getElementById('back-arrow').src = 'img/backArrow_satellite.png';
+                document.getElementById('clear-button').src = 'img/clear_satellite.png';
+                document.getElementById('refreshButton').src = 'img/refresh_satellite.png';
                 flag = true;
             } else {
                 map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-                document.getElementById('toggleButton').src = 'toSatellite.png';
-                document.getElementById('back-arrow').src = 'backArrow_street.png';
-                document.getElementById('clear-button').src = 'clear_street.png';
-                document.getElementById('refreshButton').src = 'refresh_street.png';
+                document.getElementById('toggleButton').src = 'img/toSatellite.png';
+                document.getElementById('back-arrow').src = 'img/backArrow_street.png';
+                document.getElementById('clear-button').src = 'img/clear_street.png';
+                document.getElementById('refreshButton').src = 'img/refresh_street.png';
                 flag = false;
             }
         });
