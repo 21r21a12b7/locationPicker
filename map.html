@@ -134,6 +134,7 @@
         <button id="save-button">Save</button>
     </div>
     <div id="buttons-container">
+        <img id="refreshButton" src="refresh_street.png" alt="refresh">
         <img id="my-location-button" src="myLocation.png" alt="My Location">
         <img id="toggleButton" src="toSatellite.png" alt="Satellite View">
     </div>
@@ -143,6 +144,15 @@
 
         document.getElementById('clear-button').addEventListener('click', function () {
             document.getElementById('search-input').value = '';
+        });
+
+        document.getElementById('refreshButton').addEventListener('click', function () {
+            // Remove the map instance and reinitialize it
+            initMap();
+            document.getElementById('toggleButton').src = 'toSatellite.png';
+            document.getElementById('back-arrow').src = 'backArrow_street.png';
+            document.getElementById('clear-button').src = 'clear_street.png';
+            document.getElementById('refreshButton').src = 'refresh_street.png';
         });
 
         function updateCoordinates(lat, lng) {
@@ -285,33 +295,23 @@
                 document.getElementById('toggleButton').src = 'toStreet.png';
                 document.getElementById('back-arrow').src = 'backArrow_satellite.png';
                 document.getElementById('clear-button').src = 'clear_satellite.png';
+                document.getElementById('refreshButton').src = 'refresh_satellite.png';
                 flag = true;
             } else {
                 map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
                 document.getElementById('toggleButton').src = 'toSatellite.png';
                 document.getElementById('back-arrow').src = 'backArrow_street.png';
                 document.getElementById('clear-button').src = 'clear_street.png';
+                document.getElementById('refreshButton').src = 'refresh_street.png';
                 flag = false;
             }
         });
 
-        // Add click event listener to the back-arrow to close the iframe
-        document.getElementById('back-arrow').addEventListener('click', function () {
-            // const coordinatesElement = document.getElementById('coordinates').innerText;
-            const coordinatesElement = "Enter location Coordinates";
-            window.parent.postMessage(coordinatesElement, '*');
-        });
+        window.onload = initMap;
     </script>
-    <script>
-        // Load the Google Maps JavaScript API asynchronously
-        function loadScript() {
-            const script = document.createElement('script');
-            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&callback=initMap&libraries=places';
-            document.body.appendChild(script);
-        }
-
-        window.onload = loadScript;
-    </script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTLsxJULM5z_3qqnYmXehSlYSFv5uN6d8&libraries=places&callback=initMap"
+        async defer></script>
 </body>
 
 </html>
